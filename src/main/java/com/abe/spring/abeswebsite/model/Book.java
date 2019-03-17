@@ -1,6 +1,7 @@
 package com.abe.spring.abeswebsite.model;
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -55,12 +56,32 @@ public class Book {
     this.isbn = isbn;
   }
 
+  @Override
+  public boolean equals(final Object o){
+    if(this == o)
+      return true;
+    if(o == null || getClass() != o.getClass())
+      return false;
+    final Book book = (Book)o;
+    return Objects.equals(id, book.id);
+  }
+
+  @Override
+  public int hashCode(){
+    return Objects.hash(id);
+  }
+
   public String getPublisher() {
     return publisher;
   }
 
   public void setPublisher(String publisher) {
     this.publisher = publisher;
+  }
+
+  @Override
+  public String toString(){
+    return "Book{" + "id=" + id + ", title='" + title + '\'' + ", isbn='" + isbn + '\'' + ", publisher='" + publisher + '\'' + ", authors=" + authors + '}';
   }
 
   public Set<Author> getAuthors() {
